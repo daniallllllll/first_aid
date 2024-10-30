@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'symptomchecker.dart'; // Import the symptom checker page
-import 'criticalemergency.dart'; // Import the critical emergency page
+import 'symptomchecker.dart';
+import 'criticalemergency.dart';
+import 'edit_profile.dart'; // Import edit_profile.dart
 
 void main() {
   runApp(const MyApp());
@@ -34,30 +35,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _obscurePassword = true; // To toggle password visibility
-  int _selectedIndex = 0; // Default index for BottomNavigationBar
+  bool _obscurePassword = true;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (index == 3) { // If "Symptom" is tapped
+      if (index == 3) { // Opens Symptom Checker
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SymptomCheckerPage()),
+        );
+      } else if (index == 4) {
+        // Navigate to ProfilePage
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfilePage()),
         );
       }
     });
   }
 
   void _login() {
-    // Here you would typically handle the login logic
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    // For demonstration, just print the values
-    print('Username: $username, Password: $password');
-
-    // You can also navigate to the SymptomCheckerPage after successful login
+    // Navigate to SymptomCheckerPage after login
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SymptomCheckerPage()),
@@ -79,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          title: const Text('Login', style: TextStyle(fontSize: 24, color: Colors.white)), // Set text color to white
+          title: const Text('Login', style: TextStyle(fontSize: 24, color: Colors.white)),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -113,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _obscurePassword = !_obscurePassword; // Toggle password visibility
+                      _obscurePassword = !_obscurePassword;
                     });
                   },
                 ),
@@ -123,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded button
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text('Login'),
@@ -153,8 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Symptom',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.error, size: 26),
-            label: 'Alert',
+            icon: Icon(Icons.person, size: 26),
+            label: 'Profile',
           ),
         ],
         selectedItemColor: Colors.deepPurple,
@@ -176,14 +179,14 @@ class _MyHomePageState extends State<MyHomePage> {
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30), // Rounded corners
+          borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.deepPurple),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.deepPurple),
         ),
-        suffixIcon: suffixIcon, // Option to add a suffix icon
+        suffixIcon: suffixIcon,
       ),
     );
   }
