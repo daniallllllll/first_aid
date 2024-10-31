@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'symptomchecker.dart';
 import 'criticalemergency.dart';
-import 'edit_profile.dart'; // Import edit_profile.dart
+import 'edit_profile.dart';
+import 'home.dart';
+import 'condition_detail.dart'; // Import the new ConditionDetailPage
 
 void main() {
   runApp(const MyApp());
@@ -41,16 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (index == 3) { // Opens Symptom Checker
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SymptomCheckerPage()),
-        );
-      } else if (index == 4) {
-        // Navigate to ProfilePage
+      if (index == 3) { // Navigate to Profile Page
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const ProfilePage()),
+        );
+      } else if (index == 4) { // Navigate to Condition Detail Page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ConditionDetailPage()),
         );
       }
     });
@@ -60,7 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    // Navigate to SymptomCheckerPage after login
+    print('Username: $username, Password: $password');
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SymptomCheckerPage()),
@@ -152,12 +154,12 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Play',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sick, size: 26),
-            label: 'Symptom',
+            icon: Icon(Icons.account_circle, size: 26),
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 26),
-            label: 'Profile',
+            icon: Icon(Icons.error, size: 26),
+            label: 'Alert',
           ),
         ],
         selectedItemColor: Colors.deepPurple,
